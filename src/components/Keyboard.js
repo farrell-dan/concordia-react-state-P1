@@ -5,8 +5,11 @@ import { useState } from "react";
 
 import { colors, contentWidth } from "./GlobalStyles";
 
-const Keyboard = ({}) => {
+const Keyboard = ({usedLetters, setUsedLetters}) => {
 
+    const handleLetterClick = (letter) => {
+        setUsedLetters([...usedLetters, letter]);
+      };
 
   return (
     <Wrapper>
@@ -14,6 +17,8 @@ const Keyboard = ({}) => {
         <LetterKey
           key={letter}
           letter={letter}
+          onClick={handleLetterClick}
+          disabled={usedLetters.includes(letter)}
         />
       ))}
     </Wrapper>

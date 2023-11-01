@@ -17,12 +17,16 @@ const App = () => {
 
   const [game, setGame] = useState(initialGameState);
 
+  const handleStart = () => {
+    setGame ({...game, started: !game.started})
+  }
+
   return (
     <Wrapper>
       {/* <GameOverModal /> */}
       <Header />
       <Nav>
-        <Button>btn 1</Button>
+        <Button onClickFunc={handleStart}>Start</Button>
         <Button>btn 2</Button>
       </Nav>
       {game.started && (

@@ -8,38 +8,56 @@ import Keyboard from "./Keyboard";
 import GameOverModal from "./GameOverModal";
 
 import { useState } from "react";
+import words from "../data/words.json";
 
 import { colors, contentWidth } from "./GlobalStyles";
 
 const initialGameState = { started: false, over: false, win: false };
 
 const App = () => {
-
   const [game, setGame] = useState(initialGameState);
+  const [word, setWord] = useState({str: ""})
 
   const handleStart = () => {
-    setGame ({...game, started: !game.started})
-  }
+    setGame({ ...game, started: !game.started });
+    if(!word.str){getNewWord()};
+  };
+
+  const getNewWord = () => {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    const randomWord = words[randomIndex];
+    setWord({str: randomWord});
+  };
+
+  const getButtonLabel = () => {
+    if (!game.started && !word.str) {
+      return "Start";
+    } else if (game.started) {
+      return "Pause";
+    } else {
+      return "Continue";
+    }
+  };
 
   return (
     <Wrapper>
       {/* <GameOverModal /> */}
       <Header />
       <Nav>
-        <Button onClickFunc={handleStart}>Start</Button>
+        <Button onClickFunc={handleStart}>{getButtonLabel()}</Button>
         <Button>btn 2</Button>
       </Nav>
       {game.started && (
-      <>
-        <Container>
-          <Deadman />
-          <RightColumn>
-            <DeadLetters />
-            <TheWord />
-          </RightColumn>
-        </Container>
-        <Keyboard />
-      </>
+        <>
+          <Container>
+            <Deadman />
+            <RightColumn>
+              <DeadLetters />
+              <TheWord />
+            </RightColumn>
+          </Container>
+          <Keyboard />
+        </>
       )}
     </Wrapper>
   );

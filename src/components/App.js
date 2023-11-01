@@ -16,7 +16,7 @@ const initialGameState = { started: false, over: false, win: false };
 
 const App = () => {
   const [game, setGame] = useState(initialGameState);
-  const [word, setWord] = useState({str: ""})
+  const [word, setWord] = useState({str: "", revealed: []})
 
   const handleStart = () => {
     setGame({ ...game, started: !game.started });
@@ -26,7 +26,9 @@ const App = () => {
   const getNewWord = () => {
     const randomIndex = Math.floor(Math.random() * words.length);
     const randomWord = words[randomIndex];
-    setWord({str: randomWord});
+    const revealedArray = Array.from(randomWord, () => "")
+
+    setWord({str: randomWord, revealed: revealedArray });
   };
 
   const getButtonLabel = () => {
@@ -53,7 +55,7 @@ const App = () => {
             <Deadman />
             <RightColumn>
               <DeadLetters />
-              <TheWord />
+              <TheWord word={word.str} revealed={word.revealed}/>
             </RightColumn>
           </Container>
           <Keyboard />

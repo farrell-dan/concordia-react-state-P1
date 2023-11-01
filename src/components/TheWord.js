@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
-const TheWord = ({}) => {
-    return (
-        <Wrapper>____ ____ ____ ____ </Wrapper>
-    )
-}
+const TheWord = ({ word, revealed }) => {
+  return (
+    <Wrapper>
+      {word.split("").map((letter, index) => (
+        <Span key={index} line={revealed[index] !== letter}>
+          {revealed[index] !== "" ? revealed[index] : ""}
+        </Span>
+      ))}
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.p`
   font-size: 20px;

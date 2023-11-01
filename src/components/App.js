@@ -7,9 +7,16 @@ import TheWord from "./TheWord";
 import Keyboard from "./Keyboard";
 import GameOverModal from "./GameOverModal";
 
+import { useState } from "react";
+
 import { colors, contentWidth } from "./GlobalStyles";
 
+const initialGameState = { started: false, over: false, win: false };
+
 const App = () => {
+
+  const [game, setGame] = useState(initialGameState);
+
   return (
     <Wrapper>
       {/* <GameOverModal /> */}
@@ -18,6 +25,7 @@ const App = () => {
         <Button>btn 1</Button>
         <Button>btn 2</Button>
       </Nav>
+      {game.started && (
       <>
         <Container>
           <Deadman />
@@ -28,6 +36,7 @@ const App = () => {
         </Container>
         <Keyboard />
       </>
+      )}
     </Wrapper>
   );
 };

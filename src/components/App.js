@@ -36,7 +36,7 @@ const App = () => {
   const getButtonLabel = () => {
     if (!game.started && !word.str) {
       return "Start";
-    } else if (game.started) {
+    } if (game.started) {
       return "Pause";
     } else {
       return "Continue";

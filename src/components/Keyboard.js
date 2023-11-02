@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import LetterKey from "./LetterKey";
 import letters from "../data/letters.json";
-import { useState } from "react";
 
 import { colors, contentWidth } from "./GlobalStyles";
 

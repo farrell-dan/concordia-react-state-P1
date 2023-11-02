@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
-const TheWord = ({ word, revealed }) => {
+const TheWord = ({ revealed }) => {
   return (
     <Wrapper>
-      {word.split("").map((letter, index) => (
-        <Span key={index} line={revealed[index] !== letter}>
-          {revealed[index] !== "" ? revealed[index] : ""}
-        </Span>
-      ))}
+      {revealed.map((letter, index) => {
+        return (
+        <Span key={index} line={letter === ""? true :false }>
+          {letter}
+        </Span>)
+})}
     </Wrapper>
   );
 };

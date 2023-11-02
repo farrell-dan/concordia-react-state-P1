@@ -7,8 +7,8 @@ const DeadLetters = ({ wrongGuesses }) => {
     <Wrapper>
       <h2>Dead Letters</h2>
       <List>
-        {wrongGuesses.map((letter, index) => (
-          <Letter key={index}>{letter}</Letter>
+        {wrongGuesses.map((letter) => (
+          <Letter key={letter}>{letter}</Letter>
         ))}
       </List>
     </Wrapper>

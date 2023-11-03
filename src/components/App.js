@@ -16,30 +16,48 @@ const initialGameState = { started: false, over: false, win: false };
 
 const App = () => {
   const [game, setGame] = useState(initialGameState);
-  const [word, setWord] = useState({str: "", revealed: []})
+  const [word, setWord] = useState({ string: "", revealed: [] });
   const [wrongGuesses, setWrongGuesses] = useState([]);
   const [usedLetters, setUsedLetters] = useState([]);
 
   const handleStart = () => {
     setGame({ ...game, started: !game.started });
-    if(!word.str){getNewWord()};
+    if (!word.string) {
+      getNewWord();
+    }
   };
 
   const getNewWord = () => {
     const randomIndex = Math.floor(Math.random() * words.length);
     const randomWord = words[randomIndex];
-    const revealedArray = Array.from(randomWord, () => "")
+    const revealedArray = Array.from(randomWord, () => "");
 
-    setWord({str: randomWord, revealed: revealedArray });
+    setWord({ string: randomWord, revealed: revealedArray });
   };
 
   const getButtonLabel = () => {
-    if (!game.started && !word.str) {
+    if (!game.started && !word.string) {
       return "Start";
-    } if (game.started) {
+    }
+    if (game.started) {
       return "Pause";
     } else {
       return "Continue";
+    }
+  };
+
+  const handleGuess = (ltr) => {
+    // lots of logic in here.
+    setUsedLetters([...usedLetters, ltr]);
+    if (word.string.includes(ltr)) {
+      const updateRevealed = word.string
+        .split("")
+        .map((letter, index) =>
+          usedLetters.includes(letter) ? letter : word.string[index] === ltr ? ltr: word.revealed[index]
+        );
+        setWord({...word, revealed: updateRevealed})
+    } else {
+      setWrongGuesses([...wrongGuesses, ltr]);
     }
   };
 
@@ -56,11 +74,11 @@ const App = () => {
           <Container>
             <Deadman />
             <RightColumn>
-              <DeadLetters wrongGuesses={wrongGuesses}/>
-              <TheWord word={word.str} revealed={word.revealed}/>
+              <DeadLetters wrongGuesses={wrongGuesses} />
+              <TheWord word={word.string} revealed={word.revealed} />
             </RightColumn>
           </Container>
-          <Keyboard usedLetters={usedLetters} setUsedLetters={setUsedLetters}/>
+          <Keyboard usedLetters={usedLetters} setUsedLetters={setUsedLetters} handleGuess={handleGuess} />
         </>
       )}
     </Wrapper>

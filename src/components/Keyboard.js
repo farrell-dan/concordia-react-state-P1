@@ -4,11 +4,11 @@ import letters from "../data/letters.json";
 
 import { colors, contentWidth } from "./GlobalStyles";
 
-const Keyboard = ({usedLetters, setUsedLetters}) => {
+const Keyboard = ({usedLetters, setUsedLetters, handleGuess}) => {
 
-    const handleLetterClick = (letter) => {
-        setUsedLetters([...usedLetters, letter]);
-      };
+    // const handleLetterClick = (letter) => {
+    //     setUsedLetters([...usedLetters, letter]);
+    //   };
 
   return (
     <Wrapper>
@@ -16,7 +16,7 @@ const Keyboard = ({usedLetters, setUsedLetters}) => {
         <LetterKey
           key={letter}
           letter={letter}
-          onClick={handleLetterClick}
+          onClick={()=> handleGuess(letter)}
           disabled={usedLetters.includes(letter)}
         />
       ))}

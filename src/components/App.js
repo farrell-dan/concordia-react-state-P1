@@ -53,12 +53,24 @@ const App = () => {
       const updateRevealed = word.string
         .split("")
         .map((letter, index) =>
-          usedLetters.includes(letter) ? letter : word.string[index] === ltr ? ltr: word.revealed[index]
+          usedLetters.includes(letter)
+            ? letter
+            : word.string[index] === ltr
+            ? ltr
+            : word.revealed[index]
         );
-        setWord({...word, revealed: updateRevealed})
+      setWord({ ...word, revealed: updateRevealed });
     } else {
       setWrongGuesses([...wrongGuesses, ltr]);
     }
+  };
+
+  const handleReset = () => {
+    setWord({ string: "", revealed: [] });
+    setWrongGuesses([]);
+    setUsedLetters([]);
+      getNewWord();
+  
   };
 
   return (
@@ -67,7 +79,7 @@ const App = () => {
       <Header />
       <Nav>
         <Button onClickFunc={handleStart}>{getButtonLabel()}</Button>
-        <Button>btn 2</Button>
+        <Button onClickFunc={handleReset}>Reset</Button>
       </Nav>
       {game.started && (
         <>
@@ -78,7 +90,11 @@ const App = () => {
               <TheWord word={word.string} revealed={word.revealed} />
             </RightColumn>
           </Container>
-          <Keyboard usedLetters={usedLetters} setUsedLetters={setUsedLetters} handleGuess={handleGuess} />
+          <Keyboard
+            usedLetters={usedLetters}
+            setUsedLetters={setUsedLetters}
+            handleGuess={handleGuess}
+          />
         </>
       )}
     </Wrapper>

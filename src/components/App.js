@@ -63,15 +63,25 @@ const App = () => {
     } else {
       setWrongGuesses([...wrongGuesses, ltr]);
     }
+    if (wrongGuesses.length >= 10){
+      handleEndGame (false)
+    } else if (word.revealed.join("") === word.string){
+      handleEndGame(true)
+    }
   };
 
   const handleReset = () => {
     setWord({ string: "", revealed: [] });
     setWrongGuesses([]);
     setUsedLetters([]);
-      getNewWord();
-  
+    getNewWord();
   };
+
+  const handleEndGame = (win) => {
+    setGame({...game, over: true, win});
+    alert(`Game Over! You ${win ? "win" : "lose"}`);
+  };
+
 
   return (
     <Wrapper>
